@@ -1,0 +1,423 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=18mm,headheight=21pt,footskip=12mm]{geometry}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,tabularx,array}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{needspace}
+\usepackage{hyperref}
+
+\definecolor{navy}{HTML}{10263F}
+\definecolor{blue}{HTML}{1E6A8D}
+\definecolor{teal}{HTML}{1B8A89}
+\definecolor{sky}{HTML}{EAF4F8}
+\definecolor{mist}{HTML}{F4F7F9}
+\definecolor{line}{HTML}{CBD6DC}
+\definecolor{ink}{HTML}{16222A}
+\definecolor{muted}{HTML}{536873}
+
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,pdfauthor={Independent practice material},pdftitle={QRT-style Quant Research Mock Assessment}}
+\color{ink}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\setlist[enumerate]{label=\textbf{\Alph*.},leftmargin=8mm,itemsep=1.5pt,topsep=3pt,parsep=0pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textcolor{muted}{QRT-style Quant Research Mock}}
+\rhead{\textcolor{muted}{82 minutes}}
+\cfoot{\textcolor{muted}{\thepage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{line}\leaders\hrule height \headrulewidth\hfill}}
+
+\newcommand{\sectionbanner}[2]{%
+  \vspace{3mm}
+  {\color{navy}\Large\bfseries #1}\hfill
+  {\color{blue}\bfseries #2}
+  \par\vspace{1mm}\color{line}\rule{\linewidth}{0.8pt}\color{ink}\vspace{2mm}
+}
+
+\newtcolorbox{questionbox}[2]{
+  colback=white,
+  colframe=line,
+  colbacktitle=mist,
+  coltitle=navy,
+  fonttitle=\bfseries,
+  title={Question #1\hfill\textcolor{blue}{\small #2}},
+  boxrule=0.7pt,
+  arc=1.5mm,
+  left=3mm,right=3mm,top=2.2mm,bottom=2.2mm,
+  before skip=7pt,after skip=7pt
+}
+
+\newtcolorbox{notebox}{
+  colback=sky,
+  colframe=teal,
+  boxrule=0.7pt,
+  arc=1.5mm,
+  left=3mm,right=3mm,top=2.5mm,bottom=2.5mm
+}
+
+\begin{document}
+
+\thispagestyle{empty}
+\vspace*{10mm}
+{\color{blue}\rule{18mm}{2.2pt}}\\[7mm]
+{\fontsize{28}{32}\selectfont\bfseries\color{navy} Quant Research\\Mock Assessment}\\[4mm]
+{\Large\color{blue} QRT-style practice edition}\par
+
+\vspace{10mm}
+\begin{tcolorbox}[colback=navy,colframe=navy,arc=2mm,left=5mm,right=5mm,top=4mm,bottom=4mm]
+  \color{white}
+  \begin{tabularx}{\linewidth}{>{\bfseries}lX>{\bfseries}r}
+    Total time & 82 minutes & 24 items \\
+    Coding & 1 data-science question in the companion notebook & 42 min suggested \\
+    Theory & 10 math + 5 ML fundamentals + 8 ML advanced & 40 min suggested
+  \end{tabularx}
+\end{tcolorbox}
+
+\vspace{9mm}
+\begin{tabularx}{\linewidth}{@{}>{\color{muted}\bfseries}l X@{}}
+Candidate & \rule{0.78\linewidth}{0.4pt} \\[6mm]
+Date & \rule{0.78\linewidth}{0.4pt} \\[6mm]
+Start time & \rule{0.34\linewidth}{0.4pt}\hspace{9mm}\textcolor{muted}{End time}\hspace{3mm}\rule{0.27\linewidth}{0.4pt}
+\end{tabularx}
+
+\vfill
+\begin{notebox}
+\textbf{Independent practice material.} This is an original mock, not an official or leaked Qube Research \& Technologies assessment. Public candidate reports were used only to calibrate section structure and topic coverage. The invitation and on-screen rules for your actual assessment take priority.
+\end{notebox}
+
+\vspace{5mm}
+{\small\color{muted}Package: \texttt{QRT\_mock\_test} \hfill Prepared 28 October 2026}
+\newpage
+
+\sectionbanner{Instructions}{Read before starting}
+
+\begin{enumerate}[label=\arabic*.,leftmargin=7mm,itemsep=3pt]
+  \item Start one 82-minute timer. A suggested allocation is 42 minutes for the notebook, 18 minutes for Questions 1--10, 8 minutes for Questions 11--15, and 14 minutes for Questions 16--23.
+  \item The companion notebook contains the single coding question. This PDF contains the other 23 questions.
+  \item For \textbf{single-answer} questions, choose exactly one option. For \textbf{select-all} questions, choose every correct option and no incorrect option. Suggested scoring is one point only for an exact match.
+  \item Unless a question says otherwise, use ordinary exact arithmetic and standard statistical conventions. A calculator is optional for this mock.
+  \item Do not open the \texttt{solutions/} folder until the timer ends. There is no penalty for guessing in this practice version.
+\end{enumerate}
+
+\vspace{4mm}
+\begin{notebox}
+\textbf{Format confidence.} The 82-minute duration and 1/10/5/8 counts come from the user-provided brief. A recent third-party synthesis independently reports the same four section counts, but reports 90 minutes and is not an official QRT publication. Public candidate accounts support Python, statistics, OLS, regularization, and tree-ensemble coverage while also showing role and office variation. Platform, proctoring, scoring, navigation, and calculator rules remain unverified and are not simulated here.
+\end{notebox}
+
+\vspace{5mm}
+\textbf{Public references used for calibration}
+
+\begin{itemize}[leftmargin=6mm,itemsep=2pt]
+  \item \href{https://www.qube-rt.com/careers/research-and-trading/london/students-and-new-graduates/}{QRT official Students and New Grads page} -- official careers context, no assessment blueprint.
+  \item \href{https://www.tradermath.org/articles/qube-research-technologies-interview-guide}{TraderMath QRT interview guide} -- third-party candidate-report synthesis; same section counts, different timing.
+  \item \href{https://www.glassdoor.com/Interview/Qube-Research-and-Technologies-Interview-Questions-E3226090.htm}{Glassdoor QRT interview reports} and \href{https://www.wallstreetoasis.com/company/qube-research-and-technologies/interview}{Wall Street Oasis QRT entries} -- anonymous, variable experiences.
+\end{itemize}
+
+\vspace{5mm}
+\textbf{Answer sheet}
+
+\renewcommand{\arraystretch}{1.55}
+\begin{center}
+\begin{tabular}{c p{24mm} c p{24mm} c p{24mm}}
+\toprule
+\textbf{Q} & \textbf{Answer} & \textbf{Q} & \textbf{Answer} & \textbf{Q} & \textbf{Answer} \\
+\midrule
+1 & \rule{20mm}{0.3pt} & 9 & \rule{20mm}{0.3pt} & 17 & \rule{20mm}{0.3pt} \\
+2 & \rule{20mm}{0.3pt} & 10 & \rule{20mm}{0.3pt} & 18 & \rule{20mm}{0.3pt} \\
+3 & \rule{20mm}{0.3pt} & 11 & \rule{20mm}{0.3pt} & 19 & \rule{20mm}{0.3pt} \\
+4 & \rule{20mm}{0.3pt} & 12 & \rule{20mm}{0.3pt} & 20 & \rule{20mm}{0.3pt} \\
+5 & \rule{20mm}{0.3pt} & 13 & \rule{20mm}{0.3pt} & 21 & \rule{20mm}{0.3pt} \\
+6 & \rule{20mm}{0.3pt} & 14 & \rule{20mm}{0.3pt} & 22 & \rule{20mm}{0.3pt} \\
+7 & \rule{20mm}{0.3pt} & 15 & \rule{20mm}{0.3pt} & 23 & \rule{20mm}{0.3pt} \\
+8 & \rule{20mm}{0.3pt} & 16 & \rule{20mm}{0.3pt} & & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\newpage
+\sectionbanner{Section A: Mathematics and Statistics}{Questions 1--10 | 18 min suggested}
+
+\Needspace{9\baselineskip}
+\begin{questionbox}{1}{Single answer}
+A market is in a high-volatility regime on 20\% of days. A detector flags 60\% of high-volatility days and 10\% of all other days. Given that the detector flags today, what is the probability that today is a high-volatility day?
+\begin{enumerate}
+  \item 0.20
+  \item 0.40
+  \item 0.60
+  \item 0.75
+\end{enumerate}
+\end{questionbox}
+
+\Needspace{10\baselineskip}
+\begin{questionbox}{2}{Single answer}
+Daily event counts are conditionally Poisson with unknown rate $\lambda$. The prior is $\lambda\sim\mathrm{Gamma}(3,2)$, using shape and rate. Over three equal observation periods the counts are 4, 2, and 5. What is the posterior mean of $\lambda$?
+\begin{enumerate}
+  \item $11/3$
+  \item $7/3$
+  \item $14/5$
+  \item $16/5$
+\end{enumerate}
+\end{questionbox}
+
+\Needspace{9\baselineskip}
+\begin{questionbox}{3}{Single answer}
+Suppose $X_1,\ldots,X_n$ are i.i.d. $\mathrm{Uniform}(0,\theta)$ and the sample mean is 4.2. What is the method-of-moments estimate of $\theta$?
+\begin{enumerate}
+  \item 2.1
+  \item 4.2
+  \item 6.3
+  \item 8.4
+\end{enumerate}
+\end{questionbox}
+
+\Needspace{9\baselineskip}
+\begin{questionbox}{4}{Single answer}
+An OLS regression with an intercept has fitted slope $-0.8$. The sample means are $\bar{x}=1.5$ and $\bar{y}=0.7$. What is the fitted intercept?
+\begin{enumerate}
+  \item $-1.9$
+  \item $-0.5$
+  \item 0.1
+  \item 1.9
+\end{enumerate}
+\end{questionbox}
+
+\Needspace{9\baselineskip}
+\begin{questionbox}{5}{Single answer}
+A score is normally distributed with mean 50 and standard deviation 4. What is the z-score of an observation equal to 58?
+\begin{enumerate}
+  \item 1
+  \item 2
+  \item 4
+  \item 8
+\end{enumerate}
+\end{questionbox}
+
+\Needspace{10\baselineskip}
+\begin{questionbox}{6}{Single answer}
+What is the rank of the matrix
+\[
+A=\begin{pmatrix}
+1&2&0\\
+0&1&1\\
+1&3&1
+\end{pmatrix}?
+\]
+\begin{enumerate}
+  \item 0
+  \item 1
+  \item 2
+  \item 3
+\end{enumerate}
+\end{questionbox}
+
+\Needspace{10\baselineskip}
+\begin{questionbox}{7}{Single answer}
+A joint density is $f(x,y)=c(x+2y)$ for $0\leq x\leq1$ and $0\leq y\leq1$, and zero elsewhere. What value of $c$ normalizes the density?
+\begin{enumerate}
+  \item $1/2$
+  \item $2/3$
+  \item 1
+  \item $3/2$
+\end{enumerate}
+\end{questionbox}
+
+\Needspace{10\baselineskip}
+\begin{questionbox}{8}{Single answer}
+A chi-squared goodness-of-fit test uses seven categories. Two distribution parameters are estimated from the same data. Assuming regularity conditions, how many degrees of freedom does the reference chi-squared distribution have?
+\begin{enumerate}
+  \item 2
+  \item 3
+  \item 4
+  \item 6
+\end{enumerate}
+\end{questionbox}
+
+\Needspace{10\baselineskip}
+\begin{questionbox}{9}{Single answer}
+Let $\operatorname{Var}(X)=4$, $\operatorname{Var}(Y)=9$, and $\operatorname{Cov}(X,Y)=3$. What is $\operatorname{Var}(2X-Y)$?
+\begin{enumerate}
+  \item 7
+  \item 11
+  \item 13
+  \item 37
+\end{enumerate}
+\end{questionbox}
+
+\Needspace{13\baselineskip}
+\begin{questionbox}{10}{Select all that apply}
+In the linear model $y=X\beta+\varepsilon$, which conditions are required for the usual OLS coefficient vector to be uniquely defined and conditionally unbiased given $X$? Assume the relevant moments exist.
+\begin{enumerate}
+  \item $X$ has full column rank.
+  \item $\mathbb{E}[\varepsilon\mid X]=0$.
+  \item $\operatorname{Var}(\varepsilon\mid X)=\sigma^2I$.
+  \item $\varepsilon\mid X$ is normally distributed.
+\end{enumerate}
+\end{questionbox}
+
+\newpage
+\sectionbanner{Section B: Machine Learning Fundamentals}{Questions 11--15 | 8 min suggested}
+
+\Needspace{11\baselineskip}
+\begin{questionbox}{11}{Single answer}
+Which workflow most clearly leaks validation information into model training?
+\begin{enumerate}
+  \item Split first, fit a scaler on the training set, and transform both sets with it.
+  \item Tune a model using cross-validation inside the training set, then evaluate once on the test set.
+  \item Standardize all rows first, then split the standardized data into training and validation sets.
+  \item Fit a feature encoder on each training fold and apply it to that fold's validation rows.
+\end{enumerate}
+\end{questionbox}
+
+\Needspace{14\baselineskip}
+\begin{questionbox}{12}{Select all that apply}
+Which statements about linear-model regularization are generally correct?
+\begin{enumerate}
+  \item Increasing the penalty strength typically increases bias.
+  \item Ridge regression commonly sets many coefficients exactly to zero.
+  \item Lasso can set some coefficients exactly to zero.
+  \item Numeric features should usually be put on comparable scales before applying either penalty.
+  \item Increasing the penalty strength typically increases estimator variance.
+\end{enumerate}
+\end{questionbox}
+
+\Needspace{11\baselineskip}
+\begin{questionbox}{13}{Single answer}
+Only 0.5\% of observations are positive, and finding positives is the primary objective. Which metric is usually more informative than raw accuracy for comparing ranking models?
+\begin{enumerate}
+  \item Mean squared error
+  \item Area under the precision-recall curve
+  \item Adjusted $R^2$
+  \item Explained variance
+\end{enumerate}
+\end{questionbox}
+
+\Needspace{11\baselineskip}
+\begin{questionbox}{14}{Single answer}
+You must validate a model that predicts next month's outcome from historical time-series features. Which split best respects the information set available at prediction time?
+\begin{enumerate}
+  \item Randomly shuffle all rows before five-fold cross-validation.
+  \item Train on later dates and validate on earlier dates.
+  \item Use expanding training windows followed by later validation blocks.
+  \item Duplicate rare months before making a random split.
+\end{enumerate}
+\end{questionbox}
+
+\Needspace{10\baselineskip}
+\begin{questionbox}{15}{Single answer}
+Which method is unsupervised?
+\begin{enumerate}
+  \item Logistic regression
+  \item K-means clustering
+  \item Gradient-boosted classification
+  \item Quantile regression
+\end{enumerate}
+\end{questionbox}
+
+\newpage
+\sectionbanner{Section C: Machine Learning Advanced}{Questions 16--23 | 14 min suggested}
+
+\Needspace{12\baselineskip}
+\begin{questionbox}{16}{Select all that apply}
+Which mechanisms directly help decorrelate the trees in a standard random forest?
+\begin{enumerate}
+  \item Training trees on bootstrap samples.
+  \item Considering a random subset of features at each split.
+  \item Forcing every tree to use the same best feature at its root.
+  \item Replacing the ensemble average with one deepest tree.
+\end{enumerate}
+\end{questionbox}
+
+\Needspace{11\baselineskip}
+\begin{questionbox}{17}{Single answer}
+In gradient boosting with squared-error loss, what target does each new weak learner approximately fit?
+\begin{enumerate}
+  \item The original response with no reference to the current ensemble.
+  \item The current residuals, equivalently the negative loss gradients.
+  \item The largest principal component of the feature matrix.
+  \item The predictions of a separately trained random forest.
+\end{enumerate}
+\end{questionbox}
+
+\Needspace{13\baselineskip}
+\begin{questionbox}{18}{Select all that apply}
+Which statements about the Adam optimizer are correct?
+\begin{enumerate}
+  \item It maintains exponential moving averages of first and second gradient moments.
+  \item It guarantees convergence to a global minimum for a non-convex neural network.
+  \item It creates parameter-specific adaptive step scaling.
+  \item It removes the need to choose a learning rate.
+  \item It cannot be used with mini-batches.
+\end{enumerate}
+\end{questionbox}
+
+\Needspace{12\baselineskip}
+\begin{questionbox}{19}{Single answer}
+You use PCA before a classifier and estimate performance by cross-validation. Which implementation avoids leakage?
+\begin{enumerate}
+  \item Fit PCA once on all data, then cross-validate the classifier.
+  \item Fit PCA once on all features but exclude the target column.
+  \item Within each fold, fit PCA on the training portion and transform the validation portion with that fitted PCA.
+  \item Fit PCA independently on the validation portion so it has its own components.
+\end{enumerate}
+\end{questionbox}
+
+\Needspace{13\baselineskip}
+\begin{questionbox}{20}{Select all that apply}
+Two predictors are strongly correlated and contain similar signal. What can happen to ordinary single-feature permutation importance?
+\begin{enumerate}
+  \item Each feature's individual importance may be understated because the other can substitute for it.
+  \item The importance of both features must always be overstated.
+  \item Permutation importance automatically removes the correlation problem.
+  \item Permuting the correlated features as a group is a useful sensitivity check.
+\end{enumerate}
+\end{questionbox}
+
+\Needspace{11\baselineskip}
+\begin{questionbox}{21}{Single answer}
+What is the main purpose of nested cross-validation when many hyperparameters are compared?
+\begin{enumerate}
+  \item Make the final model sparse by construction.
+  \item Use inner folds for selection and outer folds for a less biased estimate of the full tuning procedure.
+  \item Guarantee that the chosen hyperparameters are globally optimal.
+  \item Remove the need for a time-aware split in time-series data.
+\end{enumerate}
+\end{questionbox}
+
+\Needspace{11\baselineskip}
+\begin{questionbox}{22}{Single answer}
+A binary classifier's scores are passed through a strictly increasing nonlinear transformation. Which statement is correct?
+\begin{enumerate}
+  \item ROC-AUC is unchanged, but calibration and log loss may change.
+  \item ROC-AUC and log loss are both necessarily unchanged.
+  \item ROC-AUC necessarily decreases.
+  \item Calibration is necessarily unchanged because the ranking is unchanged.
+\end{enumerate}
+\end{questionbox}
+
+\Needspace{11\baselineskip}
+\begin{questionbox}{23}{Single answer}
+After deployment, the marginal distribution of features remains approximately stable, but the relationship between features and the target changes. What is this most directly called?
+\begin{enumerate}
+  \item Covariate shift only
+  \item Label shift only
+  \item Concept drift
+  \item Bootstrap instability
+\end{enumerate}
+\end{questionbox}
+
+\vfill
+\begin{notebox}
+\textbf{Stop.} Record your answers, save the notebook, and end the timer before opening \texttt{solutions/answer\_key.md}.
+\end{notebox}
+
+\end{document}

@@ -1,0 +1,1241 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=17mm,headheight=21pt,footskip=11mm]{geometry}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{booktabs,tabularx,longtable,array}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\definecolor{navy}{HTML}{10263F}
+\definecolor{blue}{HTML}{1E6A8D}
+\definecolor{teal}{HTML}{1B8A89}
+\definecolor{sky}{HTML}{EAF4F8}
+\definecolor{mist}{HTML}{F4F7F9}
+\definecolor{sand}{HTML}{FFF5E6}
+\definecolor{warn}{HTML}{B86420}
+\definecolor{line}{HTML}{CBD6DC}
+\definecolor{ink}{HTML}{16222A}
+\definecolor{muted}{HTML}{536873}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  urlcolor=blue,
+  pdfauthor={Independent QRT-style practice material},
+  pdftitle={QRT Formula and Revision Guide}
+}
+
+\color{ink}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\setlist[itemize]{leftmargin=6mm,itemsep=1.5pt,topsep=2pt}
+\setlist[enumerate]{leftmargin=7mm,itemsep=1.5pt,topsep=2pt}
+\allowdisplaybreaks
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textcolor{muted}{QRT Formula and Revision Guide}}
+\rhead{\textcolor{muted}{Math -- Statistics -- ML -- Coding}}
+\cfoot{\textcolor{muted}{\thepage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{line}\leaders\hrule height \headrulewidth\hfill}}
+
+\newcommand{\sectionbanner}[2]{%
+  \vspace{2mm}
+  {\color{navy}\Large\bfseries #1}\hfill
+  {\color{blue}\bfseries #2}
+  \par\vspace{1mm}\color{line}\rule{\linewidth}{0.8pt}\color{ink}\vspace{2mm}
+}
+
+\newcommand{\subbanner}[1]{%
+  \vspace{2mm}{\color{navy}\large\bfseries #1}\par
+  \vspace{-1mm}{\color{line}\rule{\linewidth}{0.5pt}}\color{ink}\vspace{1mm}
+}
+
+\newtcolorbox{keybox}[1]{
+  colback=sky,
+  colframe=teal,
+  colbacktitle=teal,
+  coltitle=white,
+  fonttitle=\bfseries,
+  title={#1},
+  boxrule=0.7pt,
+  arc=1.5mm,
+  left=3mm,right=3mm,top=2.5mm,bottom=2.5mm,
+  before skip=5pt,after skip=5pt
+}
+
+\newtcolorbox{formulabox}[1]{
+  colback=mist,
+  colframe=line,
+  colbacktitle=navy,
+  coltitle=white,
+  fonttitle=\bfseries,
+  title={#1},
+  boxrule=0.7pt,
+  arc=1.5mm,
+  left=3mm,right=3mm,top=2.5mm,bottom=2.5mm,
+  before skip=5pt,after skip=5pt
+}
+
+\newtcolorbox{trapbox}[1]{
+  colback=sand,
+  colframe=warn,
+  colbacktitle=warn,
+  coltitle=white,
+  fonttitle=\bfseries,
+  title={#1},
+  boxrule=0.7pt,
+  arc=1.5mm,
+  left=3mm,right=3mm,top=2.5mm,bottom=2.5mm,
+  before skip=5pt,after skip=5pt
+}
+
+\lstdefinestyle{pythonstyle}{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{muted},
+  stringstyle=\color{teal},
+  showstringspaces=false,
+  columns=fullflexible,
+  keepspaces=true,
+  frame=single,
+  rulecolor=\color{line},
+  backgroundcolor=\color{mist},
+  xleftmargin=2mm,
+  xrightmargin=2mm,
+  aboveskip=4pt,
+  belowskip=4pt
+}
+\lstset{style=pythonstyle}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Corr}{\operatorname{Corr}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+
+\thispagestyle{empty}
+\vspace*{9mm}
+{\color{blue}\rule{20mm}{2.2pt}}\\[7mm]
+{\fontsize{27}{31}\selectfont\bfseries\color{navy} QRT Formula and\\Revision Guide}\\[4mm]
+{\Large\color{blue} Quant research assessment preparation}\par
+
+\vspace{10mm}
+\begin{tcolorbox}[colback=navy,colframe=navy,arc=2mm,left=5mm,right=5mm,top=4mm,bottom=4mm]
+\color{white}
+\begin{tabularx}{\linewidth}{>{\bfseries}lX}
+Core coverage & Probability, statistics, linear algebra, regression, ML, quant metrics, pandas \\
+Designed for & Fast MCQ recall plus one timed data-science coding task \\
+Use with & \texttt{QRT\_mock\_test.pdf} and \texttt{QRT\_data\_science.ipynb}
+\end{tabularx}
+\end{tcolorbox}
+
+\vspace{8mm}
+\begin{keybox}{How to use this guide}
+First learn the boxed identities and the meaning of every symbol. Then practise deciding \emph{which} formula or modeling assumption applies. In the final 24 hours, use the Rapid Recall section rather than rereading every derivation.
+\end{keybox}
+
+\vspace{4mm}
+\begin{trapbox}{Scope and evidence}
+This is an original revision guide, not an official Qube Research \& Technologies syllabus and not a collection of leaked questions. It follows the topic mix documented in \texttt{sources\_and\_methodology.md}. The actual invitation and on-screen instructions are authoritative.
+\end{trapbox}
+
+\vfill
+{\small\color{muted}Prepared 29 October 2026 \hfill Independent practice material}
+\newpage
+
+\sectionbanner{Priority map}{What to know cold}
+
+\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{navy}}p{26mm} X >{\raggedright\arraybackslash}p{34mm}@{}}
+\toprule
+Priority & Topics & Required depth \\
+\midrule
+Highest & Conditional probability, Bayes, expectation, variance, covariance, z-scores, OLS, regularization, cross-validation, leakage, pandas grouping & Calculate quickly and explain assumptions \\
+High & Hypothesis tests, goodness-of-fit, rank, tree ensembles, bias--variance, class imbalance, feature importance, optimizers & Recognize correct statements and common traps \\
+Medium & PCA, clustering, calibration, drift, time-series diagnostics, portfolio metrics & Know definitions, objectives, and failure modes \\
+Lower & Long derivations, exotic architectures, finance-specific pricing models & Review only if your invitation says so \\
+\bottomrule
+\end{tabularx}
+
+\subbanner{Recommended 82-minute pacing}
+
+\begin{center}
+\begin{tabular}{lrr}
+\toprule
+Section & Questions & Suggested time \\
+\midrule
+Data-science coding & 1 & 42 minutes \\
+Mathematics and statistics & 10 & 18 minutes \\
+ML fundamentals & 5 & 8 minutes \\
+ML advanced & 8 & 14 minutes \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{keybox}{Decision rule under time pressure}
+For an MCQ, identify the topic, write the smallest relevant identity, eliminate answers that violate units or bounds, and move on. For coding, get a correct end-to-end baseline before polishing; verify row counts, missingness, uniqueness, dates, and output columns.
+\end{keybox}
+
+\subbanner{Notation used throughout}
+
+\begin{tabularx}{\linewidth}{@{}lX lX@{}}
+\toprule
+Symbol & Meaning & Symbol & Meaning \\
+\midrule
+$X,Y$ & Random variables & $x_i,y_i$ & Observed values \\
+$\mu,\sigma^2$ & Population mean and variance & $\bar{x},s^2$ & Sample mean and variance \\
+$n$ & Number of observations & $p$ & Number of fitted predictors \\
+$X\in\R^{n\times p}$ & Design matrix & $\beta$ & Coefficient vector \\
+$r_t$ & Return at time $t$ & $s_{i,t}$ & Signal for asset $i$ at time $t$ \\
+\bottomrule
+\end{tabularx}
+
+\newpage
+\sectionbanner{1. Probability foundations}{Conditional reasoning first}
+
+\begin{formulabox}{Events, complements, and unions}
+\[
+\Prob(A^c)=1-\Prob(A),\qquad
+\Prob(A\cup B)=\Prob(A)+\Prob(B)-\Prob(A\cap B).
+\]
+If $A$ and $B$ are disjoint, $\Prob(A\cap B)=0$. Disjoint is not the same as independent.
+\end{formulabox}
+
+\begin{formulabox}{Conditional probability and Bayes' rule}
+\[
+\Prob(A\mid B)=\frac{\Prob(A\cap B)}{\Prob(B)},\qquad \Prob(B)>0,
+\]
+\[
+\Prob(A\mid B)=
+\frac{\Prob(B\mid A)\Prob(A)}{\Prob(B\mid A)\Prob(A)+\Prob(B\mid A^c)\Prob(A^c)}.
+\]
+More generally, if $A_1,\ldots,A_k$ partition the sample space,
+\[
+\Prob(B)=\sum_{j=1}^{k}\Prob(B\mid A_j)\Prob(A_j).
+\]
+\end{formulabox}
+
+\begin{keybox}{Plain-language interpretation}
+Bayes updates a prior probability $\Prob(A)$ using how compatible the evidence $B$ is with $A$. The denominator must include every way in which $B$ can occur.
+\end{keybox}
+
+\begin{formulabox}{Independence}
+\[
+A\perp B \iff \Prob(A\cap B)=\Prob(A)\Prob(B)
+\iff \Prob(A\mid B)=\Prob(A).
+\]
+Zero covariance does not generally imply independence. It does for jointly Gaussian variables.
+\end{formulabox}
+
+\begin{formulabox}{Expectation, variance, covariance, correlation}
+For a discrete variable,
+\[
+\E[X]=\sum_x x\Prob(X=x).
+\]
+For a continuous variable with density $f$,
+\[
+\E[X]=\int x f(x)\,dx.
+\]
+\[
+\Var(X)=\E[(X-\E X)^2]=\E[X^2]-(\E X)^2.
+\]
+\[
+\Cov(X,Y)=\E[XY]-\E[X]\E[Y],\qquad
+\Corr(X,Y)=\frac{\Cov(X,Y)}{\sigma_X\sigma_Y}.
+\]
+\end{formulabox}
+
+\begin{formulabox}{Linear transformations}
+\[
+\E[aX+b]=a\E[X]+b,\qquad \Var(aX+b)=a^2\Var(X),
+\]
+\[
+\Var(aX+bY)=a^2\Var(X)+b^2\Var(Y)+2ab\Cov(X,Y).
+\]
+If $X$ and $Y$ are independent, the covariance term is zero.
+\end{formulabox}
+
+\begin{trapbox}{Common probability traps}
+Do not invert a conditional: $\Prob(A\mid B)\neq\Prob(B\mid A)$. Do not add probabilities without subtracting the overlap. Remember that variance uses squared coefficients, and the covariance sign follows $2ab$.
+\end{trapbox}
+
+\newpage
+\sectionbanner{2. Expectations and distributions}{Recognize the model}
+
+\begin{formulabox}{Laws of total expectation and variance}
+\[
+\E[X]=\E\bigl[\E[X\mid Y]\bigr],
+\]
+\[
+\Var(X)=\E\bigl[\Var(X\mid Y)\bigr]
++\Var\bigl(\E[X\mid Y]\bigr).
+\]
+The first term is average within-group uncertainty; the second is between-group uncertainty.
+\end{formulabox}
+
+\small
+\begin{longtable}{@{}p{25mm}p{34mm}p{30mm}p{31mm}p{35mm}@{}}
+\toprule
+Distribution & Support and parameters & Mean & Variance & Typical use \\
+\midrule
+\endhead
+Bernoulli$(p)$ & $x\in\{0,1\}$ & $p$ & $p(1-p)$ & One binary outcome \\
+Binomial$(n,p)$ & $x=0,\ldots,n$ & $np$ & $np(1-p)$ & Number of successes \\
+Poisson$(\lambda)$ & $x=0,1,\ldots$ & $\lambda$ & $\lambda$ & Event counts per exposure \\
+Uniform$(a,b)$ & $a\le x\le b$ & $(a+b)/2$ & $(b-a)^2/12$ & Bounded equal-density values \\
+Normal$(\mu,\sigma^2)$ & $x\in\R$ & $\mu$ & $\sigma^2$ & Additive noise, CLT approximations \\
+Exponential$(\lambda)$ & $x\ge0$, rate $\lambda$ & $1/\lambda$ & $1/\lambda^2$ & Waiting time, memoryless model \\
+Gamma$(\alpha,\beta)$ & $x>0$, shape/rate & $\alpha/\beta$ & $\alpha/\beta^2$ & Positive rate or duration \\
+Beta$(\alpha,\beta)$ & $0<x<1$ & $\alpha/(\alpha+\beta)$ & $\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}$ & Probability parameter \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+\begin{formulabox}{Standardization}
+If $X$ has mean $\mu$ and standard deviation $\sigma>0$,
+\[
+Z=\frac{X-\mu}{\sigma}.
+\]
+Then $\E[Z]=0$ and $\Var(Z)=1$. If $X\sim N(\mu,\sigma^2)$, then $Z\sim N(0,1)$.
+\end{formulabox}
+
+\begin{formulabox}{Joint density normalization}
+A valid density satisfies $f(x,y)\ge0$ and
+\[
+\iint_{\mathcal S}f(x,y)\,dx\,dy=1.
+\]
+If $f(x,y)=c\,g(x,y)$ on support $\mathcal S$, then
+\[
+c=\left(\iint_{\mathcal S}g(x,y)\,dx\,dy\right)^{-1}.
+\]
+\end{formulabox}
+
+\begin{keybox}{Memoryless property}
+For an exponential waiting time $T$, $\Prob(T>s+t\mid T>s)=\Prob(T>t)$. The geometric distribution is the discrete analogue.
+\end{keybox}
+
+\newpage
+\sectionbanner{3. Estimation}{From sample to parameter}
+
+\begin{formulabox}{Sample summaries}
+\[
+\bar{x}=\frac1n\sum_{i=1}^{n}x_i,\qquad
+s^2=\frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar{x})^2.
+\]
+The population-style variance of the observed values uses divisor $n$; the usual unbiased sample variance uses $n-1$.
+\end{formulabox}
+
+\begin{formulabox}{Bias, variance, and mean squared error}
+For estimator $\hat\theta$,
+\[
+\operatorname{Bias}(\hat\theta)=\E[\hat\theta]-\theta,
+\]
+\[
+\operatorname{MSE}(\hat\theta)=\E[(\hat\theta-\theta)^2]
+=\Var(\hat\theta)+\operatorname{Bias}(\hat\theta)^2.
+\]
+An estimator can accept a small bias to obtain a larger variance reduction.
+\end{formulabox}
+
+\begin{formulabox}{Method of moments}
+Equate a theoretical moment to its sample analogue. If $\E_{\theta}[X]=m(\theta)$, solve
+\[
+m(\hat\theta_{\mathrm{MOM}})=\bar{x}.
+\]
+Example: for $X\sim\mathrm{Uniform}(0,\theta)$, $\E[X]=\theta/2$, so $\hat\theta=2\bar{x}$.
+\end{formulabox}
+
+\begin{formulabox}{Maximum likelihood and MAP}
+\[
+L(\theta)=\prod_{i=1}^{n}f(x_i\mid\theta),\qquad
+\ell(\theta)=\sum_{i=1}^{n}\log f(x_i\mid\theta),
+\]
+\[
+\hat\theta_{\mathrm{MLE}}=\arg\max_{\theta}\ell(\theta).
+\]
+With prior $p(\theta)$,
+\[
+\hat\theta_{\mathrm{MAP}}
+=\arg\max_{\theta}\{\ell(\theta)+\log p(\theta)\}.
+\]
+The logarithm converts products into sums and preserves the maximizer.
+\end{formulabox}
+
+\begin{formulabox}{Gamma--Poisson conjugacy}
+Use a Gamma prior with shape $\alpha$ and rate $\beta$:
+\[
+\lambda\sim\mathrm{Gamma}(\alpha,\beta),\qquad
+x_i\mid\lambda\sim\mathrm{Poisson}(e_i\lambda).
+\]
+Then
+\[
+\lambda\mid x
+\sim\mathrm{Gamma}\left(\alpha+\sum_i x_i,\ \beta+\sum_i e_i\right),
+\]
+\[
+\E[\lambda\mid x]=
+\frac{\alpha+\sum_i x_i}{\beta+\sum_i e_i}.
+\]
+Always check whether the Gamma convention uses rate or scale.
+\end{formulabox}
+
+\begin{formulabox}{Law of large numbers and central limit theorem}
+Under standard conditions, $\bar X_n\to\mu$ as $n\to\infty$. Approximately,
+\[
+\frac{\bar X-\mu}{\sigma/\sqrt n}\overset{\cdot}{\sim}N(0,1).
+\]
+The standard error of the mean is $\sigma/\sqrt n$, estimated by $s/\sqrt n$.
+\end{formulabox}
+
+\sectionbanner{4. Testing and confidence intervals}{Evidence, not certainty}
+
+\begin{formulabox}{Generic test statistic}
+\[
+\text{test statistic}=
+\frac{\text{estimate}-\text{null value}}
+{\text{standard error under }H_0}.
+\]
+For a mean with known $\sigma$,
+\[
+Z=\frac{\bar X-\mu_0}{\sigma/\sqrt n}.
+\]
+With unknown $\sigma$ and suitable normality assumptions,
+\[
+T=\frac{\bar X-\mu_0}{s/\sqrt n}\sim t_{n-1}\quad\text{under }H_0.
+\]
+\end{formulabox}
+
+\begin{formulabox}{Confidence interval}
+\[
+\text{estimate}\ \pm\ \text{critical value}\times\text{standard error}.
+\]
+For a large-sample 95\% mean interval,
+\[
+\bar x\pm1.96\frac{s}{\sqrt n}.
+\]
+The frequentist interval procedure has 95\% long-run coverage; the realized fixed parameter is not random.
+\end{formulabox}
+
+\begin{keybox}{P-value}
+The p-value is the probability, assuming the null hypothesis is true, of observing a test statistic at least as incompatible with the null as the one obtained. It is not the probability that the null is true.
+\end{keybox}
+
+\begin{tabularx}{\linewidth}{@{}lXX@{}}
+\toprule
+Decision & $H_0$ true & $H_0$ false \\
+\midrule
+Reject $H_0$ & Type I error, probability $\alpha$ & Correct rejection, power $1-\beta$ \\
+Do not reject & Correct non-rejection & Type II error, probability $\beta$ \\
+\bottomrule
+\end{tabularx}
+
+\begin{formulabox}{Chi-squared goodness-of-fit}
+For observed counts $O_j$ and expected counts $E_j$,
+\[
+\chi^2=\sum_{j=1}^{k}\frac{(O_j-E_j)^2}{E_j}.
+\]
+If $q$ parameters were estimated from the same data, a common reference degree of freedom is
+\[
+\mathrm{df}=k-1-q.
+\]
+Expected counts should not be too small for the approximation to be reliable.
+\end{formulabox}
+
+\begin{formulabox}{Multiple testing}
+Testing many hypotheses increases false discoveries. Bonferroni controls family-wise error by testing each of $m$ hypotheses at level
+\[
+\alpha_{\mathrm{individual}}=\frac{\alpha}{m}.
+\]
+It is simple and conservative. False-discovery-rate procedures target a different error criterion.
+\end{formulabox}
+
+\begin{trapbox}{Test traps}
+Statistical significance is not economic significance. Failing to reject is not proof of equality. Choosing a test after inspecting outcomes invalidates its nominal calibration unless selection is accounted for.
+\end{trapbox}
+
+\sectionbanner{5. Linear algebra}{The geometry behind models}
+
+\begin{formulabox}{Dimensions and matrix products}
+If $A\in\R^{m\times n}$ and $B\in\R^{n\times p}$, then $AB\in\R^{m\times p}$. Generally $AB\neq BA$.
+\[
+(AB)^\top=B^\top A^\top,\qquad
+(AB)^{-1}=B^{-1}A^{-1}\quad\text{when invertible}.
+\]
+\end{formulabox}
+
+\begin{formulabox}{Rank}
+$\operatorname{rank}(A)$ is the number of linearly independent rows or columns. For $A\in\R^{m\times n}$,
+\[
+\operatorname{rank}(A)\le\min(m,n).
+\]
+A square matrix is invertible exactly when it has full rank. In regression, full column rank of $X$ gives a unique OLS coefficient vector.
+\end{formulabox}
+
+\begin{formulabox}{Eigenvalues and positive semidefiniteness}
+\[
+Av=\lambda v.
+\]
+A symmetric matrix $A$ is positive semidefinite (PSD) if
+\[
+x^\top Ax\ge0\quad\text{for every }x.
+\]
+For symmetric $A$, PSD is equivalent to all eigenvalues being nonnegative. Covariance matrices are symmetric PSD.
+\end{formulabox}
+
+\begin{formulabox}{Covariance matrix}
+For random vector $X\in\R^p$ with mean $\mu$,
+\[
+\Sigma=\E[(X-\mu)(X-\mu)^\top].
+\]
+For any portfolio weights $w$,
+\[
+\Var(w^\top X)=w^\top\Sigma w\ge0.
+\]
+\end{formulabox}
+
+\begin{keybox}{Fast rank check}
+Look first for an all-zero row, proportional rows, or a row that is a sum of others. Then identify a visibly independent subset to establish the exact rank.
+\end{keybox}
+
+\newpage
+\sectionbanner{6. OLS regression}{Formula, assumptions, diagnostics}
+
+\begin{formulabox}{Simple regression}
+For $y_i=\beta_0+\beta_1x_i+\varepsilon_i$,
+\[
+\hat\beta_1=\frac{\sum_i(x_i-\bar x)(y_i-\bar y)}{\sum_i(x_i-\bar x)^2}
+=\frac{\widehat{\Cov}(X,Y)}{\widehat{\Var}(X)},
+\]
+\[
+\hat\beta_0=\bar y-\hat\beta_1\bar x.
+\]
+The fitted line passes through $(\bar x,\bar y)$.
+\end{formulabox}
+
+\begin{formulabox}{Matrix OLS}
+\[
+y=X\beta+\varepsilon,\qquad
+\hat\beta=(X^\top X)^{-1}X^\top y
+\]
+when $X$ has full column rank. OLS minimizes
+\[
+\mathrm{SSE}(\beta)=\|y-X\beta\|_2^2.
+\]
+The residual vector is $e=y-X\hat\beta$ and satisfies $X^\top e=0$.
+\end{formulabox}
+
+\sectionbanner{6. OLS regression continued}{Know what each assumption buys}
+
+\small
+\begin{tabularx}{\linewidth}{@{}p{39mm}XX@{}}
+\toprule
+Condition & Main implication & If violated \\
+\midrule
+Correct linear conditional mean & Model form is appropriate & Systematic residual structure, biased predictions \\
+$\E[\varepsilon\mid X]=0$ & Conditional unbiasedness of OLS & Endogeneity and biased coefficients \\
+Full column rank of $X$ & Unique OLS solution & Perfect multicollinearity, non-identification \\
+Homoskedastic uncorrelated errors & Classical OLS variance formula, efficiency among linear unbiased estimators & Standard errors need robust or structured correction \\
+Normal errors & Exact small-sample $t/F$ inference & Often not needed asymptotically or for unbiasedness \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\begin{formulabox}{Fit metrics}
+\[
+\mathrm{SST}=\sum_i(y_i-\bar y)^2,\qquad
+\mathrm{SSE}=\sum_i(y_i-\hat y_i)^2,
+\]
+\[
+R^2=1-\frac{\mathrm{SSE}}{\mathrm{SST}},
+\]
+\[
+\bar R^2=1-(1-R^2)\frac{n-1}{n-p-1},
+\]
+where $p$ excludes the intercept. Adding predictors cannot decrease training $R^2$, but it can decrease adjusted $R^2$ and out-of-sample performance.
+\end{formulabox}
+
+\begin{formulabox}{Ridge and Lasso}
+Ridge:
+\[
+\hat\beta_{\mathrm{ridge}}
+=\arg\min_{\beta}\Bigl\{\lVert y-X\beta\rVert_2^2
++\lambda\lVert\beta\rVert_2^2\Bigr\}.
+\]
+Lasso:
+\[
+\hat\beta_{\mathrm{lasso}}
+=\arg\min_{\beta}\Bigl\{\lVert y-X\beta\rVert_2^2
++\lambda\lVert\beta\rVert_1\Bigr\}.
+\]
+Increasing $\lambda$ generally increases bias and reduces variance. Ridge smoothly shrinks correlated coefficients; Lasso can set coefficients exactly to zero. Scale numeric features before penalization. The intercept is usually not penalized.
+\end{formulabox}
+
+\begin{trapbox}{Regression traps}
+Homoskedasticity and normality are not required for OLS coefficients to be unbiased. Correlation does not imply causation. A high in-sample $R^2$ does not establish stable out-of-sample prediction.
+\end{trapbox}
+
+\sectionbanner{7. Machine-learning workflow}{Evaluation is part of the model}
+
+\begin{keybox}{Split roles}
+The training set fits parameters. The validation set or inner CV selects models and hyperparameters. The test or outer holdout estimates final generalization. Reusing the holdout for decisions turns it into training data.
+\end{keybox}
+
+\begin{formulabox}{Empirical risk minimization}
+Given loss $\ell$ and predictor $f_\theta$,
+\[
+\hat\theta=\arg\min_\theta\frac1n\sum_{i=1}^{n}\ell(y_i,f_\theta(x_i))
++\lambda\Omega(\theta).
+\]
+The regularizer $\Omega$ encodes a preference such as small weights or sparsity.
+\end{formulabox}
+
+\begin{formulabox}{Bias--variance decomposition under squared loss}
+At a fixed input $x$, with irreducible noise variance $\sigma^2$,
+\[
+\E[(Y-\hat f(x))^2]
+=\operatorname{Bias}(\hat f(x))^2
++\Var(\hat f(x))+\sigma^2.
+\]
+More flexible models usually reduce bias but may increase variance. Regularization, more data, bagging, and simpler models can reduce variance.
+\end{formulabox}
+
+\subbanner{Cross-validation}
+
+\begin{itemize}
+  \item In ordinary $K$-fold CV, train on $K-1$ folds and validate on the remaining fold; average the validation metric.
+  \item Use stratification for rare classes when random splitting is appropriate.
+  \item For time series, preserve chronology: expanding or rolling training windows followed by later validation blocks.
+  \item Fit preprocessing separately inside each training fold: imputation, scaling, PCA, feature selection, and resampling.
+  \item Nested CV uses inner folds for selection and outer folds to estimate the whole selection procedure.
+\end{itemize}
+
+\begin{trapbox}{Leakage patterns}
+Leakage includes fitting a scaler or PCA on all rows, imputing with future values, using a feature recorded after the target horizon, oversampling before splitting, selecting features with the full dataset, or randomly splitting dependent time-series observations.
+\end{trapbox}
+
+\subbanner{Preprocessing facts}
+
+\begin{tabularx}{\linewidth}{@{}lXX@{}}
+\toprule
+Operation & Important for & Usually less important for \\
+\midrule
+Scaling & Linear penalties, KNN, SVM, PCA, neural nets & Decision trees and tree ensembles \\
+Imputation & Models that reject missing values & Models with explicit missing-value handling \\
+One-hot encoding & Unordered categories in linear/distance models & Native categorical algorithms \\
+Winsorization & Limiting extreme-value influence & Should not replace understanding data errors \\
+\bottomrule
+\end{tabularx}
+
+\sectionbanner{8. Predictive metrics}{Choose the metric for the decision}
+
+\subbanner{Regression}
+
+\begin{formulabox}{MSE, RMSE, MAE, and $R^2$}
+\[
+\mathrm{MSE}=\frac1n\sum_i(y_i-\hat y_i)^2,\qquad
+\mathrm{RMSE}=\sqrt{\mathrm{MSE}},
+\]
+\[
+\mathrm{MAE}=\frac1n\sum_i|y_i-\hat y_i|,\qquad
+R^2=1-\frac{\sum_i(y_i-\hat y_i)^2}{\sum_i(y_i-\bar y)^2}.
+\]
+MSE penalizes large errors more strongly; MAE is more robust to outliers. Test $R^2$ can be negative.
+\end{formulabox}
+
+\subbanner{Binary classification}
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+ & Predicted positive & Predicted negative \\
+\midrule
+Actually positive & TP & FN \\
+Actually negative & FP & TN \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{multicols}{2}
+\[
+\mathrm{Accuracy}=\frac{TP+TN}{TP+TN+FP+FN}
+\]
+\[
+\mathrm{Precision}=\frac{TP}{TP+FP}
+\]
+\[
+\mathrm{Recall}=\frac{TP}{TP+FN}
+\]
+\[
+\mathrm{Specificity}=\frac{TN}{TN+FP}
+\]
+\[
+F_1=2\frac{\mathrm{Precision}\cdot\mathrm{Recall}}
+{\mathrm{Precision}+\mathrm{Recall}}
+\]
+\[
+\mathrm{FPR}=\frac{FP}{FP+TN}
+\]
+\end{multicols}
+
+\begin{formulabox}{Binary log loss}
+For predicted probabilities $p_i$,
+\[
+\mathrm{LogLoss}=-\frac1n\sum_i\left[y_i\log p_i+(1-y_i)\log(1-p_i)\right].
+\]
+It rewards calibrated probabilities and heavily penalizes confident wrong predictions.
+\end{formulabox}
+
+\begin{keybox}{ROC-AUC, PR-AUC, and calibration}
+ROC-AUC is a ranking measure: it is the probability that a randomly chosen positive receives a higher score than a randomly chosen negative. A strictly increasing score transformation preserves AUC but can change calibration and log loss. With rare positives, precision--recall curves are often more informative than accuracy or ROC-AUC alone.
+\end{keybox}
+
+\begin{trapbox}{Imbalance}
+A classifier predicting the majority class can have high accuracy and zero usefulness. Consider PR-AUC, recall at a precision constraint, class weights, threshold selection, and resampling performed only within training folds.
+\end{trapbox}
+
+\sectionbanner{9. Trees and ensembles}{How the methods differ}
+
+\begin{formulabox}{Classification impurity}
+For class proportions $p_1,\ldots,p_K$,
+\[
+\mathrm{Gini}=1-\sum_{k=1}^{K}p_k^2,
+\qquad
+\mathrm{Entropy}=-\sum_{k=1}^{K}p_k\log p_k.
+\]
+A split is selected to maximize impurity reduction, equivalently the parent impurity minus the weighted child impurities.
+\end{formulabox}
+
+\begin{tabularx}{\linewidth}{@{}p{28mm}XXX@{}}
+\toprule
+Method & Main mechanism & Typical strength & Main risk \\
+\midrule
+Decision tree & Recursive feature splits & Nonlinear interactions, little preprocessing & High variance and overfitting \\
+Bagging & Average models fitted on bootstrap samples & Variance reduction & Limited bias reduction \\
+Random forest & Bagging plus random feature subsets at splits & Decorrelated strong baseline & Large ensembles, correlated-feature interpretation \\
+Gradient boosting & Sequentially fit weak learners to negative gradients & Strong predictive accuracy, bias reduction & Sensitive tuning and overfitting \\
+\bottomrule
+\end{tabularx}
+
+\begin{formulabox}{Gradient boosting update}
+For loss $L$ and current model $F_{m-1}$, pseudo-residuals are
+\[
+r_{im}=-\left.\frac{\partial L(y_i,F(x_i))}{\partial F(x_i)}\right|_{F=F_{m-1}}.
+\]
+Fit weak learner $h_m$ to these targets and update
+\[
+F_m(x)=F_{m-1}(x)+\eta h_m(x),
+\]
+where $\eta$ is the learning rate. Under squared error, pseudo-residuals are ordinary residuals.
+\end{formulabox}
+
+\begin{keybox}{Random forest decorrelation}
+Bootstrap rows make training samples differ; random feature subsets make split opportunities differ. Averaging helps most when individual trees are accurate but not too correlated.
+\end{keybox}
+
+\subbanner{Feature importance}
+
+\begin{itemize}
+  \item Impurity importance can favor high-cardinality or frequently split features.
+  \item Permutation importance measures the performance loss after disrupting one feature.
+  \item With correlated predictors, permuting one may show little loss because another substitutes for it.
+  \item Grouped permutation, drop-column tests, and stability across folds provide useful sensitivity checks.
+  \item SHAP or local explanations describe a fitted model, not causal effects.
+\end{itemize}
+
+\sectionbanner{10. PCA, clustering, and neural networks}{Advanced fundamentals}
+
+\begin{formulabox}{Principal component analysis}
+Center the feature matrix and compute covariance $S$. The first principal direction solves
+\[
+v_1=\arg\max_{\|v\|_2=1}v^\top S v.
+\]
+It is the eigenvector with largest eigenvalue $\lambda_1$. The explained-variance ratio of component $j$ is
+\[
+\frac{\lambda_j}{\sum_k\lambda_k}.
+\]
+PCA is unsupervised, sensitive to feature scale, and must be fitted only on training data within each fold.
+\end{formulabox}
+
+\begin{formulabox}{K-means objective}
+For clusters $C_1,\ldots,C_K$ with centroids $\mu_k$,
+\[
+\min_{C_1,\ldots,C_K}\sum_{k=1}^{K}\sum_{x_i\in C_k}\|x_i-\mu_k\|_2^2.
+\]
+K-means favors roughly spherical, similarly scaled clusters and can converge to local optima; initialize multiple times.
+\end{formulabox}
+
+\begin{formulabox}{Common activation and classification formulas}
+\[
+\mathrm{ReLU}(z)=\max(0,z),\qquad
+\sigma(z)=\frac{1}{1+e^{-z}},
+\]
+\[
+\mathrm{softmax}(z)_k=\frac{e^{z_k}}{\sum_j e^{z_j}}.
+\]
+For one-hot target $y$ and predicted class probabilities $p$,
+\[
+\mathrm{CrossEntropy}=-\sum_k y_k\log p_k.
+\]
+\end{formulabox}
+
+\begin{formulabox}{Gradient descent, momentum, and Adam}
+Plain gradient descent:
+\[
+\theta_{t+1}=\theta_t-\eta g_t.
+\]
+Momentum keeps an exponential direction estimate. Adam keeps first and second moment estimates:
+\[
+m_t=\beta_1m_{t-1}+(1-\beta_1)g_t,
+\]
+\[
+v_t=\beta_2v_{t-1}+(1-\beta_2)g_t^2,
+\]
+then uses bias-corrected $\hat m_t,\hat v_t$:
+\[
+\theta_{t+1}=\theta_t-\eta\frac{\hat m_t}{\sqrt{\hat v_t}+\varepsilon}.
+\]
+Adam provides adaptive parameter scaling; it does not remove learning-rate tuning or guarantee a global optimum.
+\end{formulabox}
+
+\begin{keybox}{Regularizing neural networks}
+Weight decay, dropout, early stopping, data augmentation, smaller architectures, and more data can reduce overfitting. Training loss alone cannot select the stopping point without optimistic bias.
+\end{keybox}
+
+\sectionbanner{11. Drift and model selection}{What changes after deployment}
+
+\begin{tabularx}{\linewidth}{@{}p{31mm}XX@{}}
+\toprule
+Change & Mathematical description & Example \\
+\midrule
+Covariate shift & $P(X)$ changes, $P(Y\mid X)$ stable & Different feature mix \\
+Label shift & $P(Y)$ changes, $P(X\mid Y)$ stable & Base event rate changes \\
+Concept drift & $P(Y\mid X)$ changes & Old signal--return relation weakens \\
+\bottomrule
+\end{tabularx}
+
+\begin{keybox}{Monitoring}
+Monitor input distributions, missingness, score distributions, calibration, ranking metrics, realized outcomes, latency, and subgroup behavior. Stable feature marginals do not rule out concept drift.
+\end{keybox}
+
+\begin{formulabox}{Nested cross-validation}
+For each outer fold: reserve the outer validation data; use only the outer training portion to run inner hyperparameter selection; refit the selected specification on the outer training portion; score once on the outer validation portion. Average outer scores to estimate the complete selection procedure.
+\end{formulabox}
+
+\begin{trapbox}{Hyperparameter tuning trap}
+Reporting the best score among many configurations on the same validation set is optimistically biased. The more configurations tried, the stronger the selection effect.
+\end{trapbox}
+
+\sectionbanner{12. Quant and time-series formulas}{Signal quality is not a backtest}
+
+\begin{formulabox}{Simple and log returns}
+\[
+R_t=\frac{P_t-P_{t-1}}{P_{t-1}},
+\qquad
+r_t=\log\frac{P_t}{P_{t-1}}=\log(1+R_t).
+\]
+Simple returns compound multiplicatively:
+\[
+1+R_{1:T}=\prod_{t=1}^{T}(1+R_t).
+\]
+Log returns add:
+\[
+r_{1:T}=\sum_{t=1}^{T}r_t.
+\]
+For small returns, $\log(1+R)\approx R$.
+\end{formulabox}
+
+\begin{formulabox}{Annualization}
+With approximately 252 trading days per year,
+\[
+\widehat R_{\mathrm{ann}}=252\bar r,
+\qquad
+\widehat\sigma_{\mathrm{ann}}=\sqrt{252}\,s_r.
+\]
+With zero risk-free rate,
+\[
+\widehat{\mathrm{Sharpe}}=
+\frac{\widehat R_{\mathrm{ann}}}{\widehat\sigma_{\mathrm{ann}}}
+=\sqrt{252}\frac{\bar r}{s_r}.
+\]
+These formulas assume the daily sampling and dependence structure make square-root-of-time scaling reasonable.
+\end{formulabox}
+
+\sectionbanner{12. Quant formulas continued}{Cross-sectional evaluation}
+
+Let $I_t$ be available assets, $n_t=|I_t|$, and
+\[
+k_t=\max\left(1,\left\lfloor\frac{n_t}{5}\right\rfloor\right).
+\]
+Let $L_t$ be the $k_t$ highest-signal assets and $S_t$ the $k_t$ lowest-signal assets.
+
+\begin{formulabox}{Long--short factor return}
+\[
+R_t^{\mathrm{factor}}
+=\frac1{k_t}\sum_{i\in L_t}R_{i,t+1}
+-\frac1{k_t}\sum_{i\in S_t}R_{i,t+1}.
+\]
+Positive return means high-signal assets outperformed low-signal assets that day. This ignores costs unless they are explicitly deducted.
+\end{formulabox}
+
+\begin{formulabox}{Information coefficient}
+Pearson IC:
+\[
+\mathrm{IC}_t=\Corr_i(s_{i,t},R_{i,t+1}).
+\]
+Rank IC:
+\[
+\mathrm{RankIC}_t=Corr_i(\operatorname{rank}(s_{i,t}),
+\operatorname{rank}(R_{i,t+1})).
+\]
+Rank IC measures monotonic ordering and is less sensitive to extreme magnitudes. Use average ranks for ties.
+\end{formulabox}
+
+\begin{formulabox}{Equity curve and drawdown}
+\[
+E_t=\prod_{j=1}^{t}(1+R_j),
+\qquad
+D_t=\frac{E_t}{\max_{u\le t}E_u}-1,
+\]
+\[
+\mathrm{MaxDrawdown}=\min_t D_t.
+\]
+Drawdown is normally nonpositive; $-0.08$ means an 8\% decline from a previous peak.
+\end{formulabox}
+
+\begin{formulabox}{Turnover and net return}
+One common one-way turnover definition is
+\[
+\mathrm{Turnover}_t=\frac12\sum_i|w_{i,t}-w_{i,t-1}|.
+\]
+With proportional cost $c$,
+\[
+R_t^{\mathrm{net}}\approx R_t^{\mathrm{gross}}-c\,\mathrm{Turnover}_t.
+\]
+Always state the turnover convention and whether weights are measured before or after market movement.
+\end{formulabox}
+
+\begin{formulabox}{Autocorrelation}
+At lag $k$,
+\[
+\rho_k=\Corr(X_t,X_{t-k}).
+\]
+Serial dependence reduces the amount of independent information and can make naive standard errors and Sharpe interpretations too optimistic.
+\end{formulabox}
+
+\begin{trapbox}{Backtest failure modes}
+Look-ahead bias, survivorship bias, data revisions, timestamp misalignment, overlapping labels, multiple testing, unrealistic fills, omitted costs, shorting constraints, regime instability, and using the same holdout repeatedly can all create false confidence.
+\end{trapbox}
+
+\sectionbanner{13. Pandas coding reference}{Operations to know under a clock}
+
+\subbanner{Load, inspect, and enforce types}
+
+\begin{lstlisting}
+df = pd.read_csv("data.csv")
+df.shape
+df.head()
+df.info()
+df.isna().sum()
+df["date"] = pd.to_datetime(df["date"])
+df["value"] = pd.to_numeric(df["value"], errors="coerce")
+\end{lstlisting}
+
+\subbanner{Filter, sort, and deduplicate}
+
+\begin{lstlisting}
+start = pd.Timestamp("2025-06-02")
+holdout = df.loc[df["date"] >= start].copy()
+
+df = (
+    df.sort_values(["date", "asset", "observation_time"],
+                   kind="mergesort")
+      .drop_duplicates(["date", "asset"], keep="last")
+      .reset_index(drop=True)
+)
+\end{lstlisting}
+
+Stable sorting makes deterministic tie handling easier. After sorting corrections from early to late, \code{keep="last"} keeps the latest correction.
+
+\subbanner{GroupBy: aggregate versus transform}
+
+\begin{lstlisting}
+# One output row per date:
+daily_mean = df.groupby("date")["value"].agg("mean")
+
+# One output value per original row:
+row_aligned_mean = df.groupby("date")["value"].transform("mean")
+
+# Same-size transformation within each date:
+df["z"] = df.groupby("date")["value"].transform(
+    lambda s: (s - s.mean()) / s.std(ddof=0)
+)
+\end{lstlisting}
+
+\begin{keybox}{Transform mental model}
+Pandas passes each group Series to the function. If the function returns one scalar, \code{transform} broadcasts it to every row in that group. If it returns a same-length Series, pandas aligns those values back to the original rows.
+\end{keybox}
+
+\subbanner{Missing values, quantiles, and clipping}
+
+\begin{lstlisting}
+sector_median = (
+    df.groupby(["date", "sector"])["signal_raw"]
+      .transform("median")
+)
+day_median = df.groupby("date")["signal_raw"].transform("median")
+df["signal_raw"] = df["signal_raw"].fillna(sector_median)
+df["signal_raw"] = df["signal_raw"].fillna(day_median)
+
+lower = df.groupby("date")["signal_raw"].transform(
+    lambda s: s.quantile(0.05)
+)
+upper = df.groupby("date")["signal_raw"].transform(
+    lambda s: s.quantile(0.95)
+)
+df["signal_winsor"] = df["signal_raw"].clip(lower, upper)
+\end{lstlisting}
+
+\sectionbanner{13. Pandas continued}{Daily portfolios and time series}
+
+\subbanner{Iterate over daily cross-sections}
+
+\begin{lstlisting}
+rows = []
+for date, group in holdout.groupby("date", sort=True):
+    group = group.sort_values(["signal_z", "asset"],
+                              kind="mergesort")
+    n = len(group)
+    k = max(1, n // 5)
+    short = group.head(k)
+    long = group.tail(k)
+
+    signal_rank = group["signal_z"].rank(method="average")
+    return_rank = group["next_day_return"].rank(method="average")
+
+    rows.append({
+        "date": date,
+        "factor_return": (long["next_day_return"].mean()
+                          - short["next_day_return"].mean()),
+        "rank_ic": signal_rank.corr(return_rank),
+        "n_assets": n,
+        "n_per_leg": k,
+    })
+
+daily = pd.DataFrame(rows).sort_values("date").reset_index(drop=True)
+\end{lstlisting}
+
+\subbanner{Time-series operations}
+
+\begin{lstlisting}
+df = df.sort_values(["asset", "date"])
+df["lag_signal"] = df.groupby("asset")["signal"].shift(1)
+df["return"] = df.groupby("asset")["price"].pct_change()
+df["rolling_mean"] = (
+    df.groupby("asset")["return"]
+      .transform(lambda s: s.rolling(20, min_periods=20).mean())
+)
+\end{lstlisting}
+
+\subbanner{Join and reshape}
+
+\begin{lstlisting}
+merged = left.merge(right, on=["date", "asset"],
+                    how="left", validate="one_to_one")
+stacked = pd.concat([df_a, df_b], ignore_index=True)
+wide = df.pivot(index="date", columns="asset", values="return")
+\end{lstlisting}
+
+Use \code{validate=} in merges when you know the expected key relationship. It catches accidental many-to-many joins.
+
+\begin{trapbox}{Coding traps}
+Do not overwrite the raw input unexpectedly. Avoid chained assignment; filter with \code{.loc[...].copy()}. Sort before \code{head}, \code{tail}, \code{shift}, rolling calculations, or deduplication. Verify that every feature is available at prediction time.
+\end{trapbox}
+
+\sectionbanner{14. Data-science validation checklist}{Test invariants, not just values}
+
+\begin{multicols}{2}
+\textbf{After cleaning}
+\begin{itemize}
+  \item Expected number of rows
+  \item No duplicate key pairs
+  \item Correct dtypes
+  \item Missingness understood
+  \item Dates ordered
+  \item Original raw data not mutated
+\end{itemize}
+
+\columnbreak
+\textbf{After feature construction}
+\begin{itemize}
+  \item Daily z-score means near zero
+  \item Daily population standard deviations near one
+  \item No target used in signal construction
+  \item Lag directions correct
+  \item Train/holdout boundary respected
+  \item Tie handling deterministic
+\end{itemize}
+\end{multicols}
+
+\begin{lstlisting}
+assert not clean.duplicated(["date", "asset"]).any()
+assert clean["signal_z"].notna().all()
+
+by_day = clean.groupby("date")["signal_z"]
+assert np.allclose(by_day.mean(), 0.0, atol=1e-10)
+assert np.allclose(by_day.std(ddof=0), 1.0, atol=1e-10)
+
+assert daily["date"].is_monotonic_increasing
+assert daily[["factor_return", "rank_ic"]].notna().all().all()
+\end{lstlisting}
+
+\begin{keybox}{Good implementation order}
+Parse and validate inputs; build the smallest correct transformation; inspect shape and keys; add the portfolio calculation; add metrics; write assertions; restart the kernel and run top to bottom.
+\end{keybox}
+
+\sectionbanner{15. Common conceptual traps}{Tempting answers to reject}
+
+\begin{enumerate}
+  \item \textbf{Conditional probability:} the base rate belongs in Bayes' numerator and denominator.
+  \item \textbf{Variance:} constants shift the mean but do not change variance; scaling by $a$ scales variance by $a^2$.
+  \item \textbf{OLS:} homoskedasticity is not required for unbiasedness; zero conditional mean is.
+  \item \textbf{Regularization:} stronger penalties generally increase bias and reduce variance; Ridge does not usually create exact zeros.
+  \item \textbf{Cross-validation:} preprocessing belongs inside each training fold.
+  \item \textbf{Time series:} random splitting can leak future regimes and neighboring observations.
+  \item \textbf{AUC:} ranking quality is not probability calibration.
+  \item \textbf{Feature importance:} predictive attribution is not causal effect; correlation can hide importance.
+  \item \textbf{Backtests:} a high Sharpe without costs, uncertainty, or an untouched holdout is not enough.
+  \item \textbf{Pandas:} \code{agg} reduces groups; \code{transform} returns values aligned to original rows.
+\end{enumerate}
+
+\sectionbanner{16. Rapid Recall}{Final review sheet}
+
+\small
+\begin{longtable}{@{}p{39mm}p{117mm}@{}}
+\toprule
+Topic & Formula or fact \\
+\midrule
+\endhead
+Conditional probability & $\Prob(A\mid B)=\Prob(A\cap B)/\Prob(B)$ \\
+Bayes & Posterior $\propto$ likelihood $\times$ prior \\
+Total probability & $\Prob(B)=\sum_j\Prob(B\mid A_j)\Prob(A_j)$ \\
+Variance identity & $\Var(X)=\E[X^2]-(\E X)^2$ \\
+Linear variance & $\Var(aX+bY)=a^2\Var X+b^2\Var Y+2ab\Cov(X,Y)$ \\
+Standard score & $z=(x-\mu)/\sigma$ \\
+Sample variance & $s^2=\sum_i(x_i-\bar x)^2/(n-1)$ \\
+Estimator MSE & $\operatorname{MSE}=\operatorname{Variance}+\operatorname{Bias}^2$ \\
+Method of moments & Equate theoretical and empirical moments \\
+MLE & Maximize $\sum_i\log f(x_i\mid\theta)$ \\
+Gamma--Poisson & Posterior shape $=\alpha+\sum x_i$; rate $=\beta+\sum e_i$ \\
+Standard error & $s/\sqrt n$ for the sample mean \\
+Confidence interval & Estimate $\pm$ critical value $\times$ SE \\
+Goodness-of-fit df & Categories $-1-$ fitted parameters \\
+Rank & Number of independent rows or columns \\
+PSD & $x^\top Ax\ge0$ for all $x$; symmetric PSD matrices have nonnegative eigenvalues \\
+OLS slope & $\hat\beta_1=\widehat{\Cov}(X,Y)/\widehat{\Var}(X)$ \\
+OLS intercept & $\hat\beta_0=\bar y-\hat\beta_1\bar x$ \\
+Matrix OLS & $\hat\beta=(X^\top X)^{-1}X^\top y$ under full column rank \\
+$R^2$ & $1-\mathrm{SSE}/\mathrm{SST}$ \\
+Ridge / Lasso & $L_2$ smooth shrinkage / $L_1$ possible exact zeros \\
+Bias--variance & Error $=$ bias$^2+$ variance $+$ irreducible noise \\
+Precision / recall & $TP/(TP+FP)$ and $TP/(TP+FN)$ \\
+$F_1$ & Harmonic mean of precision and recall \\
+Log loss & $-[y\log p+(1-y)\log(1-p)]$ averaged over rows \\
+Random forest & Bootstrap rows plus random feature subsets; average trees \\
+Boosting & Fit negative gradients sequentially; update with learning rate \\
+PCA & Eigenvectors of covariance; largest eigenvalue gives first component \\
+K-means & Minimize within-cluster squared distances \\
+Adam & Moving first and second gradient moments with adaptive scaling \\
+Simple return & $R_t=P_t/P_{t-1}-1$ \\
+Compounding & $1+R_{1:T}=\prod_t(1+R_t)$ \\
+Annualized return / vol & $252\bar r$ and $\sqrt{252}s_r$ \\
+Sharpe & $\sqrt{252}\bar r/s_r$ when risk-free rate is zero \\
+Rank IC & Correlation of cross-sectional signal and future-return ranks \\
+Drawdown & $E_t/\max_{u\le t}E_u-1$ \\
+Pandas transform & Same-indexed output; scalar group results are broadcast \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+\begin{trapbox}{Last-minute rule}
+Do not memorize a formula without its conditions. Ask: What is random? What is conditioned on? Is the statistic cross-sectional or time-series? Was every transformation fitted without using future or holdout information?
+\end{trapbox}
+
+\newpage
+\sectionbanner{17. Final checklist}{Before pressing Start}
+
+\begin{multicols}{2}
+\textbf{Mathematics}
+\begin{itemize}
+  \item Bayes and total probability
+  \item Expectation, variance, covariance
+  \item Common distribution means and variances
+  \item MOM, MLE, posterior update
+  \item z/t statistics and chi-squared df
+  \item Matrix rank and covariance PSD
+  \item OLS slope, intercept, assumptions
+  \item Ridge versus Lasso
+\end{itemize}
+
+\textbf{Machine learning}
+\begin{itemize}
+  \item Bias--variance tradeoff
+  \item Leakage-safe cross-validation
+  \item Class imbalance metrics
+  \item Bagging versus boosting
+  \item Random forest decorrelation
+  \item PCA and scaling
+  \item Feature importance caveats
+  \item Adam and learning-rate facts
+\end{itemize}
+
+\columnbreak
+\textbf{Coding}
+\begin{itemize}
+  \item Parse dates and sort explicitly
+  \item Deduplicate with a clear rule
+  \item Use groupwise \code{transform}
+  \item Handle missing values and zero variance
+  \item Use deterministic tie-breaking
+  \item Respect the holdout boundary
+  \item Return exact requested columns
+  \item Restart and run all cells
+\end{itemize}
+
+\textbf{Research judgement}
+\begin{itemize}
+  \item Prediction timestamp precedes target
+  \item Costs and turnover considered
+  \item Holdout untouched during selection
+  \item Multiple testing acknowledged
+  \item Performance uncertainty reported
+  \item Regime and drift risks considered
+  \item Economic and statistical significance separated
+\end{itemize}
+\end{multicols}
+
+\begin{keybox}{During the test}
+Read whether a question is single-answer or select-all. For formulas, write the structure before substituting numbers. For code, preserve the raw data, name intermediate objects clearly, and validate invariants. If stuck, leave a working partial implementation and move forward.
+\end{keybox}
+
+\vfill
+\begin{tcolorbox}[colback=navy,colframe=navy,arc=2mm,left=5mm,right=5mm,top=4mm,bottom=4mm]
+\color{white}\centering
+\Large\bfseries Good research is correct, reproducible, leakage-aware, and skeptical of its own backtest.
+\end{tcolorbox}
+
+\end{document}

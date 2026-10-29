@@ -1,9 +1,54 @@
+# macOS and editor metadata
 .DS_Store
+._*
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Python bytecode and caches
 __pycache__/
 *.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pytype/
+.hypothesis/
+.coverage
+.coverage.*
+htmlcov/
+
+# Virtual environments and local environment files
 .venv/
 venv/
+env/
+ENV/
+.python-version
 .env
 .env.*
+!.env.example
+
+# Packaging and build outputs
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+pip-wheel-metadata/
+
+# Jupyter-generated files
 .ipynb_checkpoints/
+
+# Logs, temporary files, and local databases
+*.log
+*.tmp
+*.temp
+*.bak
+*.sqlite
+*.sqlite3
+*.db
+
+# Project-specific local scratch notebook
 exercises.ipynb
