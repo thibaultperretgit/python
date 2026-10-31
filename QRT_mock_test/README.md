@@ -10,6 +10,8 @@ This folder contains an original, unofficial practice assessment modeled on the 
 
 No question is copied from a live assessment. Public reports were used only to calibrate the format and topic mix. See `sources_and_methodology.md` for what is corroborated, what conflicts, and what remains unknown.
 
+It also contains three independent, progressive scikit-learn coding mocks. They are original practice exercises rather than claims about the contents of any live assessment.
+
 ## Start here
 
 1. Before the timed attempt, review `QRT_formula_and_revision_guide.pdf` and note any weak topics.
@@ -34,6 +36,20 @@ No question is copied from a live assessment. Public reports were used only to c
 - `scripts/build_notebook.py` - reproducible notebook builder.
 - `scripts/validate_package.py` - package and top-to-bottom notebook validator.
 
+### Progressive scikit-learn mocks
+
+- `QRT_ml_01_cement_classification.ipynb` - binary classification with a protected labeled test set, pipelines, scaling, baselines, classification metrics, and model extraction.
+- `QRT_ml_02_market_regime_clustering.ipynb` - KMeans selection and profiling, PCA visualization, and optional KMeans-stability/DBSCAN work.
+- `QRT_ml_03_volatility_regression.ipynb` - chronological Ridge regression with walk-forward cross-validation, a five-row gap, residual diagnostics, and optional random-forest comparison.
+- `data/cement_train.csv` and `data/cement_test.csv` - deterministic synthetic cement-strength classification data.
+- `data/market_regimes.csv` - deterministic unlabeled market-regime data.
+- `data/volatility_train.csv` and `data/volatility_test.csv` - deterministic chronological volatility-regression data.
+- `solutions/*_reference.py` - separate reference implementations; keep these closed during timed attempts.
+- `solutions/ml_answer_key.md` - expected metrics, interpretations, and optional-section guidance.
+- `scripts/generate_ml_data.py` - shared deterministic generator for the five ML CSV files.
+- `scripts/build_ml_notebooks.py` - reproducible builder for all three candidate notebooks.
+- `scripts/validate_ml_assessments.py` - data, solution, leakage-boundary, metric, and clean-kernel notebook checks.
+
 ## Run the notebook
 
 From this folder:
@@ -44,6 +60,8 @@ jupyter notebook QRT_data_science.ipynb
 ```
 
 The notebook uses only NumPy and pandas for the actual exercise. It is intentionally runnable before completion: unfinished checks report `NOT YET` rather than crashing the kernel. After implementation, all three checks should report `PASS`.
+
+The three ML notebooks follow the same convention: every unfinished notebook runs from top to bottom, incomplete core checks report `NOT YET`, and optional advanced cells can be skipped. Suggested core timing is 45-60 minutes for classification, 45-60 minutes for clustering, and 55-70 minutes for regression.
 
 ## Rebuild and validate
 
@@ -56,6 +74,16 @@ python3 QRT_mock_test/scripts/validate_package.py
 ```
 
 The validation script imports the reference solution, checks deterministic data invariants, and executes a temporary copy of the candidate notebook from top to bottom.
+
+For the three ML mocks:
+
+```bash
+python3 QRT_mock_test/scripts/generate_ml_data.py
+python3 QRT_mock_test/scripts/build_ml_notebooks.py
+python3 QRT_mock_test/scripts/validate_ml_assessments.py
+```
+
+The ML validator checks reproducibility, schemas, class balance, chronology, model quality, cluster quality, feature boundaries, and clean-kernel execution of all three candidate notebooks.
 
 ## Fair-use note
 
